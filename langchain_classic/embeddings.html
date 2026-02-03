@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>embeddings</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.embeddings</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Embedding model wrappers, cache helpers, and provider shims.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Unified init_embeddings or cache-backed embeddings.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>init_embeddings(...) then optional CacheBackedEmbeddings.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Prefer provider packages; keep cache via storage.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>init_embeddings builds provider-specific embeddings from a unified model string.</li>
+            <li>CacheBackedEmbeddings wraps an embedder with a key-value cache.</li>
+            <li>Re-exports many provider embeddings from langchain_community.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>init_embeddings.</li>
+            <li>CacheBackedEmbeddings.</li>
+            <li>HypotheticalDocumentEmbedder (from chains.hyde).</li>
+            <li>Provider embeddings such as OpenAIEmbeddings, CohereEmbeddings, HuggingFaceEmbeddings, etc. via dynamic
+              import.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Supported providers in init_embeddings include openai, azure_openai, bedrock, cohere, google_genai,
+              google_vertexai, huggingface, mistralai, and ollama.</li>
+            <li>Most provider classes are shims to langchain_community and require installing the integration packages.
+            </li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.embeddings import init_embeddings
+
+embedder = init_embeddings(&quot;openai:text-embedding-3-small&quot;)
+embedder.embed_query(&quot;hello&quot;)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.embeddings import CacheBackedEmbeddings
+from langchain_classic.storage import LocalFileStore
+from langchain_openai import OpenAIEmbeddings
+
+store = LocalFileStore(&quot;./embedding_cache&quot;)
+underlying = OpenAIEmbeddings()
+embedder = CacheBackedEmbeddings.from_bytes_store(
+    underlying, store, namespace=underlying.model
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.chains.hyde.base import HypotheticalDocumentEmbedder
+from langchain_classic.embeddings import init_embeddings
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;hypothetical doc&quot;])
+base = init_embeddings(&quot;openai:text-embedding-3-small&quot;)
+hyde = HypotheticalDocumentEmbedder.from_llm(llm, base)
+hyde.embed_query(&quot;What is LCEL?&quot;)</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

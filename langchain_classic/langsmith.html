@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>langsmith</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.smith</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>LangSmith evaluation runner utilities for datasets.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Run dataset evaluation and capture results.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Client + RunEvalConfig + run_on_dataset.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Use the langsmith SDK directly for advanced cases.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>run_on_dataset and arun_on_dataset evaluate a chain or agent over a dataset.</li>
+            <li>RunEvalConfig configures which evaluators run and how results are scored.</li>
+            <li>Integrates with langsmith.Client for dataset access and logging.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>RunEvalConfig, run_on_dataset, arun_on_dataset.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>The module name is langchain_classic.smith (not langchain_classic.langsmith).</li>
+            <li>Requires the langsmith package for client access.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langsmith import Client
+from langchain_classic.smith import run_on_dataset
+
+client = Client()
+run_on_dataset(client, &quot;my_dataset&quot;, construct_chain)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.smith import RunEvalConfig
+
+config = RunEvalConfig(evaluators=[&quot;qa&quot;, RunEvalConfig.Criteria(&quot;helpfulness&quot;)])</code></pre><h3>Advanced</h3><pre><code>from langsmith import Client
+from langchain_classic.smith import arun_on_dataset
+
+client = Client()
+# await arun_on_dataset(client, &quot;my_dataset&quot;, construct_chain)</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>callbacks</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.callbacks</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Callback handlers and tracing helpers for observing runs.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Tracing/logging/streaming for chains or agents.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Pass callbacks=[...] to invoke/astream; use collect_runs.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Import integration callbacks from langchain_community.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Standard handlers for stdout and file logging.</li>
+            <li>Streaming helpers for async iterators and final-only stdout.</li>
+            <li>Tracing helpers with LangChainTracer plus tracing_v2_enabled and collect_runs.</li>
+            <li>Proxy to many integration-specific handlers via langchain_community.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>StdOutCallbackHandler, StreamingStdOutCallbackHandler, FileCallbackHandler.</li>
+            <li>AsyncIteratorCallbackHandler, FinalStreamingStdOutCallbackHandler.</li>
+            <li>LangChainTracer, collect_runs, tracing_v2_enabled.</li>
+            <li>Community handlers such as WandbCallbackHandler, MlflowCallbackHandler, OpenAICallbackHandler, etc.
+              (dynamic imports).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Most provider-specific callback handlers are imported dynamically from langchain_community and will warn
+              about deprecation when used from langchain_classic.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.callbacks import StdOutCallbackHandler
+from langchain_classic.chains import LLMChain
+from langchain_core.language_models import FakeListLLM
+from langchain_core.prompts import PromptTemplate
+
+llm = FakeListLLM(responses=[&quot;hello&quot;])
+prompt = PromptTemplate.from_template(&quot;Say {thing}&quot;)
+chain = LLMChain(llm=llm, prompt=prompt)
+chain.invoke({&quot;thing&quot;: &quot;hi&quot;}, callbacks=[StdOutCallbackHandler()])</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.callbacks import collect_runs
+
+with collect_runs() as cb:
+    chain.invoke({&quot;thing&quot;: &quot;hi&quot;})
+print(len(cb.traced_runs))</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.callbacks import LangChainTracer
+
+tracer = LangChainTracer(project_name=&quot;classic-docs&quot;)
+chain.invoke({&quot;thing&quot;: &quot;hi&quot;}, callbacks=[tracer])</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

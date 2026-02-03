@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chat_models</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.chat_models</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Compatibility layer for chat model integrations plus a unified initializer.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Legacy import path or unified init_chat_model.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Use init_chat_model("provider:model") or langchain_community.chat_models.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Import directly from langchain_community or provider packages.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Re-exports chat models from langchain_community with a deprecation warning outside interactive
+              environments.</li>
+            <li>Provides init_chat_model for provider-agnostic initialization and runtime configurability.</li>
+            <li>Includes BaseChatModel and SimpleChatModel via langchain_core in the base module.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>init_chat_model.</li>
+            <li>ChatOpenAI, AzureChatOpenAI, ChatAnthropic, BedrockChat, ChatVertexAI, ChatCohere, ChatOllama,
+              ChatGooglePalm, ChatDatabricks.</li>
+            <li>FakeListChatModel, HumanInputChatModel, PromptLayerChatOpenAI.</li>
+            <li>Plus many other provider-specific chat models dynamically exposed from langchain_community.chat_models.
+            </li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Importing chat models from langchain_classic emits a LangChainDeprecationWarning outside interactive
+              environments.</li>
+            <li>init_chat_model requires the provider integration package (for example langchain-openai) to be
+              installed.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.chat_models import init_chat_model
+
+model = init_chat_model(&quot;openai:gpt-3.5-turbo&quot;)
+model.invoke(&quot;Hello&quot;)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.chat_models import init_chat_model
+
+model = init_chat_model(configurable_fields=&quot;any&quot;)
+model.invoke(
+    &quot;Hello&quot;,
+    config={&quot;configurable&quot;: {&quot;model&quot;: &quot;openai:gpt-4o-mini&quot;}},
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_community.chat_models import ChatOpenAI
+from langchain_core.messages import HumanMessage
+
+model = ChatOpenAI()
+model.invoke([HumanMessage(content=&quot;Hello&quot;)])</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

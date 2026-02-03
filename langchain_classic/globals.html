@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>globals</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.globals</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Global debug, verbose, and cache configuration hooks.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Set debug/verbose/cache globally.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Call set_debug/set_verbose/set_llm_cache at startup.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Prefer per-run config in new code.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Re-exports the global setters and getters from langchain_core.globals.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>get_debug, set_debug.</li>
+            <li>get_verbose, set_verbose.</li>
+            <li>get_llm_cache, set_llm_cache.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>These settings apply process-wide and affect classic chains, agents, and runnables.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.globals import set_debug
+
+set_debug(True)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.globals import set_verbose, get_verbose
+
+set_verbose(True)
+print(get_verbose())</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.globals import set_llm_cache
+from langchain_community.cache import InMemoryCache
+
+set_llm_cache(InMemoryCache())</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

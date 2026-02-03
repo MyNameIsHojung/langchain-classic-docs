@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chains</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.chains</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Legacy chain implementations for composing model calls, retrieval, and post-processing.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Legacy chain classes (LLMChain, RetrievalQA, summarizers).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Create prompt + model, then chain; use helper factories.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Use LCEL (prompt | llm | parser) instead of LLMChain.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Classic chain classes for LLM calls, conversation, retrieval QA, summarization, and routing.</li>
+            <li>Document-combining chains such as stuff, map-reduce, map-rerank, refine, and reduce.</li>
+            <li>OpenAI functions helpers for extraction, tagging, and structured output.</li>
+            <li>Shims to community chains for OpenAPI and graph QA.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>LLMChain, ConversationChain, SequentialChain, SimpleSequentialChain, TransformChain.</li>
+            <li>StuffDocumentsChain, MapReduceDocumentsChain, MapRerankDocumentsChain, RefineDocumentsChain,
+              ReduceDocumentsChain, AnalyzeDocumentChain.</li>
+            <li>RetrievalQA, RetrievalQAWithSourcesChain, QAWithSourcesChain, VectorDBQA, VectorDBQAWithSourcesChain,
+              create_retrieval_chain.</li>
+            <li>LLMRouterChain, RouterChain, MultiPromptChain, MultiRouteChain, MultiRetrievalQAChain.</li>
+            <li>LLMMathChain, LLMCheckerChain, LLMSummarizationCheckerChain, OpenAIModerationChain, QAGenerationChain,
+              FlareChain, NatBotChain.</li>
+            <li>create_extraction_chain, create_tagging_chain, create_qa_with_sources_chain,
+              create_structured_output_runnable.</li>
+            <li>create_history_aware_retriever, create_sql_query_chain, load_summarize_chain.</li>
+            <li>Community shims: OpenAPIEndpointChain, GraphQAChain, GraphCypherQAChain, LLMRequestsChain, etc.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Many names are resolved via a dynamic import map. Some chains live in langchain_community and require
+              that package.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.chains import LLMChain
+from langchain_core.language_models import FakeListLLM
+from langchain_core.prompts import PromptTemplate
+
+llm = FakeListLLM(responses=[&quot;hello&quot;])
+prompt = PromptTemplate.from_template(&quot;Say {thing}&quot;)
+chain = LLMChain(llm=llm, prompt=prompt)
+chain.invoke({&quot;thing&quot;: &quot;hi&quot;})</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.chains import load_summarize_chain
+from langchain_core.documents import Document
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;summary&quot;])
+docs = [Document(page_content=&quot;Long text...&quot;)]
+chain = load_summarize_chain(llm, chain_type=&quot;map_reduce&quot;)
+chain.invoke({&quot;input_documents&quot;: docs})</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.chains import create_retrieval_chain, LLMChain
+from langchain_core.prompts import PromptTemplate
+
+prompt = PromptTemplate.from_template(&quot;Answer: {input}&quot;)
+combine = LLMChain(llm=llm, prompt=prompt)
+retrieval_chain = create_retrieval_chain(retriever, combine)
+retrieval_chain.invoke({&quot;input&quot;: &quot;question&quot;})</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

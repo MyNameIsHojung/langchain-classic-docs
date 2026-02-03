@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>hub</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.hub</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Push and pull prompts and runnables from the LangChain Hub.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Pull/push prompts or runnables via the Hub.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>hub.pull(...) / hub.push(...).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Prefer the langsmith hub client.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>push serializes a LangChain object and uploads it to the hub.</li>
+            <li>pull fetches an object from the hub and deserializes it.</li>
+            <li>Uses langsmith.Client when available, with a fallback to the legacy langchainhub client.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>push, pull.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Requires langsmith or langchainhub to be installed. The preferred path is langsmith.</li>
+            <li>API key and api_url can be provided explicitly or picked up from environment configuration.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic import hub
+
+prompt = hub.pull(&quot;owner/prompt_name&quot;)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.runnables.hub import HubRunnable
+
+runnable = HubRunnable(&quot;owner/prompt_name&quot;)
+result = runnable.invoke({&quot;input&quot;: &quot;hi&quot;})</code></pre><h3>Advanced</h3><pre><code>from langchain_classic import hub
+
+hub.push(
+    &quot;owner/prompt_name&quot;,
+    object=prompt,
+    tags=[&quot;classic&quot;, &quot;docs&quot;],
+)</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

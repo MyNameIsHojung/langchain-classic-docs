@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>agents</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.agents</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Classic agent framework for tool-using workflows and action selection.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Legacy agent executors (ZeroShot/MRKL/ReAct/Structured/XML).</li>
+            <li>Tool-driven workflows in the pre-0.2 API.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Define tools (Tool or @tool) and choose an agent factory.</li>
+            <li>Create AgentExecutor/initialize_agent and invoke with input.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Prefer LangGraph or LCEL tool-calling for new systems.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Defines core agent interfaces and executors that loop over actions and tool calls.</li>
+            <li>Provides classic agent types such as ZeroShot, MRKL, ReAct, conversational, structured, and XML agents.
+            </li>
+            <li>Includes factory helpers for OpenAI functions, tool calling, JSON/structured chat, and vectorstore
+              agents.</li>
+            <li>Re-exports Tool and the tool decorator from langchain_core.tools for convenience.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>Core classes: Agent, AgentExecutor, AgentExecutorIterator, AgentOutputParser.</li>
+            <li>Base types: BaseSingleActionAgent, BaseMultiActionAgent, LLMSingleActionAgent, AgentType.</li>
+            <li>Agent flavors: ZeroShotAgent, MRKLChain, ReActChain, ReActTextWorldAgent, ConversationalAgent,
+              ConversationalChatAgent, StructuredChatAgent, XMLAgent.</li>
+            <li>OpenAI flavors: OpenAIFunctionsAgent, OpenAIMultiFunctionsAgent.</li>
+            <li>Factories: initialize_agent, load_agent, create_openai_functions_agent, create_openai_tools_agent,
+              create_tool_calling_agent.</li>
+            <li>Factories (classic): create_react_agent, create_structured_chat_agent, create_json_chat_agent,
+              create_self_ask_with_search_agent.</li>
+            <li>Vectorstore helpers: create_vectorstore_agent, create_vectorstore_router_agent.</li>
+            <li>Tool helpers: Tool, tool.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Some toolkits are resolved dynamically from langchain_community (for example create_sql_agent,
+              create_openapi_agent, load_tools). Install langchain-community for those imports.</li>
+            <li>create_csv_agent, create_pandas_dataframe_agent, create_spark_dataframe_agent, and create_xorbits_agent
+              raise ImportError and are moved to langchain_experimental.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.agents import AgentType, initialize_agent
+from langchain_core.language_models import FakeListLLM
+from langchain_core.tools import Tool
+
+llm = FakeListLLM(responses=[&quot;ok&quot;])
+tools = [Tool(name=&quot;echo&quot;, func=lambda x: x, description=&quot;Echo input&quot;)]
+agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION)
+agent.invoke({&quot;input&quot;: &quot;hello&quot;})</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.agents import AgentType, initialize_agent
+from langchain_core.language_models import FakeListLLM
+from langchain_core.tools import Tool
+
+llm = FakeListLLM(responses=[&quot;ok&quot;])
+tools = [Tool(name=&quot;echo&quot;, func=lambda x: x, description=&quot;Echo input&quot;)]
+agent = initialize_agent(
+    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, return_intermediate_steps=True
+)
+result = agent.invoke({&quot;input&quot;: &quot;hi&quot;})
+print(result[&quot;intermediate_steps&quot;])</code></pre><h3>Advanced</h3><pre><code>from langchain_openai import ChatOpenAI
+from langchain_classic.agents import create_tool_calling_agent, AgentExecutor
+from langchain_core.tools import tool
+
+@tool
+def add(a: int, b: int) -&gt; int:
+    return a + b
+
+llm = ChatOpenAI()
+agent = create_tool_calling_agent(llm, [add])
+executor = AgentExecutor(agent=agent, tools=[add])
+executor.invoke({&quot;input&quot;: &quot;Add 2 and 3&quot;})</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

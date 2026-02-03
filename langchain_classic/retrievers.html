@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>retrievers</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.retrievers</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Retrievers that return documents for a text query.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Provide documents for RAG.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Start with a vectorstore retriever, then wrap for multi-query/compression.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Import retrievers from langchain_community for new integrations.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Classic retrievers such as multi-query, multi-vector, parent-document, and time-weighted retrievers.
+            </li>
+            <li>Contextual compression and ensemble retrievers for improving retrieval quality.</li>
+            <li>Dynamic import shims for many external-system retrievers in langchain_community.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>ContextualCompressionRetriever, EnsembleRetriever, MergerRetriever.</li>
+            <li>MultiQueryRetriever, MultiVectorRetriever, ParentDocumentRetriever.</li>
+            <li>SelfQueryRetriever, RePhraseQueryRetriever, TimeWeightedVectorStoreRetriever.</li>
+            <li>Community retrievers such as BM25Retriever, AmazonKendraRetriever, PineconeHybridSearchRetriever, etc.
+              (dynamic imports).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Most external retrievers are provided by langchain_community and require provider-specific dependencies.
+            </li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_community.retrievers import BM25Retriever
+from langchain_core.documents import Document
+
+texts = [&quot;cats are great&quot;, &quot;dogs like walks&quot;, &quot;cats purr&quot;]
+docs = [Document(page_content=t) for t in texts]
+retriever = BM25Retriever.from_documents(docs)
+retriever.invoke(&quot;cats&quot;)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.retrievers import MultiQueryRetriever
+from langchain_community.retrievers import BM25Retriever
+from langchain_core.documents import Document
+from langchain_core.language_models import FakeListLLM
+
+docs = [Document(page_content=&quot;cats&quot;), Document(page_content=&quot;dogs&quot;)]
+base = BM25Retriever.from_documents(docs)
+llm = FakeListLLM(responses=[&quot;cat care
+cat behavior
+cat food&quot;])
+retriever = MultiQueryRetriever.from_llm(retriever=base, llm=llm)
+retriever.invoke(&quot;How to care for a cat?&quot;)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.retrievers import SelfQueryRetriever
+
+retriever = SelfQueryRetriever.from_llm(
+    llm=llm,
+    vectorstore=vectorstore,
+    document_contents=&quot;product reviews&quot;,
+    metadata_field_info=metadata_field_info,
+)
+retriever.invoke(&quot;Affordable shoes under $100&quot;)</code></pre></section>
+
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

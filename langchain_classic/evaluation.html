@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>evaluation</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.evaluation</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Evaluator chains and utilities for grading outputs and datasets.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Grade outputs or compare model responses.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>load_evaluator(...) then evaluate_strings; LangSmith for datasets.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Use LangSmith evaluation tooling for repeatable runs.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Load evaluators by name with load_evaluator or load_evaluators.</li>
+            <li>Provides off-the-shelf chains for QA, criteria-based grading, embedding distance, and string distance.
+            </li>
+            <li>Includes evaluator interfaces for string, pairwise, and agent trajectory evaluation.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>load_evaluator, load_evaluators, load_dataset.</li>
+            <li>QAEvalChain, ContextQAEvalChain, CotQAEvalChain.</li>
+            <li>CriteriaEvalChain, LabeledCriteriaEvalChain, Criteria.</li>
+            <li>EmbeddingDistanceEvalChain, PairwiseEmbeddingDistanceEvalChain, EmbeddingDistance.</li>
+            <li>StringDistanceEvalChain, PairwiseStringDistanceEvalChain, StringDistance.</li>
+            <li>ScoreStringEvalChain, LabeledScoreStringEvalChain.</li>
+            <li>ExactMatchStringEvaluator, RegexMatchStringEvaluator, JsonSchemaEvaluator, JsonValidityEvaluator,
+              JsonEqualityEvaluator.</li>
+            <li>EvaluatorType, StringEvaluator, PairwiseStringEvaluator, AgentTrajectoryEvaluator.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Evaluation chains can be composed with LangSmith evaluation runs via langchain_classic.smith.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.evaluation import load_evaluator
+
+evaluator = load_evaluator(&quot;qa&quot;)
+result = evaluator.evaluate_strings(
+    prediction=&quot;We sold more than 40,000 units&quot;,
+    input=&quot;How many units did we sell?&quot;,
+    reference=&quot;We sold 32,378 units&quot;,
+)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.evaluation import load_evaluator
+
+evaluator = load_evaluator(&quot;criteria&quot;, criteria=&quot;conciseness&quot;)
+result = evaluator.evaluate_strings(
+    prediction=&quot;Short answer&quot;,
+    input=&quot;Question&quot;,
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.evaluation import PairwiseStringEvalChain
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;A&quot;, &quot;B&quot;])
+chain = PairwiseStringEvalChain.from_llm(llm)
+chain.evaluate_string_pairs(prediction=&quot;A&quot;, prediction_b=&quot;B&quot;, input=&quot;Q&quot;)</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

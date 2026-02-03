@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>storage</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.storage</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Key-value stores and storage helpers for caching and persistence.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Cache embeddings or docs in KV stores.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Use InMemoryStore or LocalFileStore/EncoderBackedStore.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Prefer langchain_core.stores for new code.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>In-memory stores for bytes and arbitrary values.</li>
+            <li>File-system backed byte store and encoder-backed store wrapper.</li>
+            <li>Helpers to build LangChain docstores and LC stores.</li>
+            <li>Dynamic imports for Redis and Upstash stores from langchain_community.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>InMemoryStore, InMemoryByteStore, InvalidKeyException.</li>
+            <li>LocalFileStore, EncoderBackedStore.</li>
+            <li>create_kv_docstore, create_lc_store.</li>
+            <li>RedisStore, UpstashRedisStore, UpstashRedisByteStore (dynamic imports).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Redis and Upstash stores require langchain-community and their client libraries.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.storage import InMemoryStore
+
+store = InMemoryStore()
+store.mset([(&quot;key&quot;, {&quot;value&quot;: 1})])</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.storage import LocalFileStore
+
+store = LocalFileStore(&quot;./cache_dir&quot;)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.storage import EncoderBackedStore, LocalFileStore
+import json
+
+base = LocalFileStore(&quot;./cache_dir&quot;)
+store = EncoderBackedStore(
+    base,
+    key_encoder=lambda k: k,
+    value_serializer=lambda v: json.dumps(v).encode(),
+    value_deserializer=lambda b: json.loads(b.decode()),
+)</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

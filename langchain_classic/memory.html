@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>memory</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.memory</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Stateful memory implementations for chains and agents.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Maintain conversation state across runs.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Choose a memory class and attach to chain/agent.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Consider external memory stores for new apps.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Buffer and summary memories for conversational context.</li>
+            <li>Token-buffer and vectorstore-backed memories for longer histories.</li>
+            <li>Combined and read-only memory adapters plus entity memory with entity stores.</li>
+            <li>Chat message history implementations are dynamically imported from langchain_community.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>ConversationBufferMemory, ConversationStringBufferMemory, ConversationBufferWindowMemory.</li>
+            <li>ConversationSummaryMemory, ConversationSummaryBufferMemory, ConversationTokenBufferMemory.</li>
+            <li>ConversationVectorStoreTokenBufferMemory, VectorStoreRetrieverMemory.</li>
+            <li>CombinedMemory, ReadOnlySharedMemory, SimpleMemory.</li>
+            <li>ConversationEntityMemory, InMemoryEntityStore, RedisEntityStore, SQLiteEntityStore,
+              UpstashRedisEntityStore.</li>
+            <li>Chat message histories such as RedisChatMessageHistory, SQLChatMessageHistory, etc. (dynamic imports).
+            </li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Community chat history implementations require langchain-community and their respective drivers.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.memory import ConversationBufferMemory
+
+memory = ConversationBufferMemory(return_messages=True)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.memory import ConversationSummaryBufferMemory
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;summary&quot;])
+memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=50)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.memory import VectorStoreRetrieverMemory
+
+memory = VectorStoreRetrieverMemory(retriever=retriever)</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>

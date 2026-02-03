@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>runnables</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.runnables</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>Non-core runnable utilities for the LangChain Expression Language (LCEL).</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>Route OpenAI function calls or load hub runnables.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Use OpenAIFunctionsRouter or HubRunnable.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>Prefer LCEL/core runnables for new workflows.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>Includes helper runnables that bind or route based on tool-call outputs.</li>
+            <li>Provides HubRunnable for loading a runnable from the LangChain Hub.</li>
+            <li>LCEL core interfaces live in langchain_core.runnables.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>OpenAIFunctionsRouter (langchain_classic.runnables.openai_functions).</li>
+            <li>HubRunnable (langchain_classic.runnables.hub).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>The package __init__ only provides a module docstring; import concrete classes from their submodules.
+            </li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.runnables.hub import HubRunnable
+
+runnable = HubRunnable(&quot;owner/prompt_name&quot;)
+runnable.invoke({&quot;input&quot;: &quot;hi&quot;})</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.runnables.openai_functions import OpenAIFunctionsRouter
+from langchain_core.runnables import RunnableLambda
+
+router = OpenAIFunctionsRouter(
+    runnables={
+        &quot;add&quot;: RunnableLambda(lambda x: x[&quot;a&quot;] + x[&quot;b&quot;]),
+        &quot;echo&quot;: RunnableLambda(lambda x: x),
+    }
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+chain = PromptTemplate.from_template(&quot;Say {thing}&quot;) | llm | StrOutputParser()
+chain.invoke({&quot;thing&quot;: &quot;hello&quot;})</code></pre></section>
+      
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>
