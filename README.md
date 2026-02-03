@@ -24,4 +24,4 @@ Then open `http://localhost:8000/`.
 
 ## Notes
 - This is **not** an official LangChain document.
-- Content is derived from local package sources in `.venv/Lib/site-packages/langchain_classic`.
+- Content is derived from local package sources in `langchain_classic`.
