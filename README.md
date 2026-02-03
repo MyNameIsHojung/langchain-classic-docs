@@ -22,6 +22,13 @@ python -m http.server
 
 Then open `http://localhost:8000/`.
 
+## Live site
+You can access the published site here:
+
+```
+https://mynameishojung.github.io/langchain-classic-docs/index.html
+```
+
 ## Notes
 - This is **not** an official LangChain document.
 - Content is derived from local package sources in `langchain_classic`.
