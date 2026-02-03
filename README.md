@@ -22,7 +22,7 @@ python -m http.server
 
 Then open `http://localhost:8000/`.
 
-## Live site
+## (Live site)[https://mynameishojung.github.io/langchain-classic-docs/index.html]
 You can access the published site here:
 
 ```
