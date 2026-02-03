@@ -71,9 +71,7 @@ from langchain_core.language_models import FakeListLLM
 
 docs = [Document(page_content=&quot;cats&quot;), Document(page_content=&quot;dogs&quot;)]
 base = BM25Retriever.from_documents(docs)
-llm = FakeListLLM(responses=[&quot;cat care
-cat behavior
-cat food&quot;])
+llm = FakeListLLM(responses=[&quot;cat care&quot;, &quot;cat behavior&quot;, &quot;cat food&quot;])
 retriever = MultiQueryRetriever.from_llm(retriever=base, llm=llm)
 retriever.invoke(&quot;How to care for a cat?&quot;)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.retrievers import SelfQueryRetriever
 
