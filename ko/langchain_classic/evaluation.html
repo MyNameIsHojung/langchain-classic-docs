@@ -1,0 +1,89 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>evaluation</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.evaluation</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>출력과 데이터셋을 채점하기 위한 평가 체인과 유틸리티입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>출력을 평가하거나 모델 응답을 비교할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>load_evaluator(...) 후 evaluate_strings를 사용하고, 데이터셋은 LangSmith를 사용합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>반복 가능한 실행을 위해 LangSmith 평가 도구를 사용하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>load_evaluator 또는 load_evaluators로 이름 기반 평가기를 로드합니다.</li>
+            <li>QA, 기준 기반 채점, 임베딩 거리, 문자열 거리를 위한 기본 체인을 제공합니다.</li>
+            <li>문자열, pairwise, 에이전트 궤적 평가를 위한 평가기 인터페이스를 포함합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>load_evaluator, load_evaluators, load_dataset.</li>
+            <li>QAEvalChain, ContextQAEvalChain, CotQAEvalChain.</li>
+            <li>CriteriaEvalChain, LabeledCriteriaEvalChain, Criteria.</li>
+            <li>EmbeddingDistanceEvalChain, PairwiseEmbeddingDistanceEvalChain, EmbeddingDistance.</li>
+            <li>StringDistanceEvalChain, PairwiseStringDistanceEvalChain, StringDistance.</li>
+            <li>ScoreStringEvalChain, LabeledScoreStringEvalChain.</li>
+            <li>ExactMatchStringEvaluator, RegexMatchStringEvaluator, JsonSchemaEvaluator, JsonValidityEvaluator,
+              JsonEqualityEvaluator.</li>
+            <li>EvaluatorType, StringEvaluator, PairwiseStringEvaluator, AgentTrajectoryEvaluator.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>평가 체인은 langchain_classic.smith를 통해 LangSmith 평가 실행과 함께 조합할 수 있습니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.evaluation import load_evaluator
+
+evaluator = load_evaluator(&quot;qa&quot;)
+result = evaluator.evaluate_strings(
+    prediction=&quot;We sold more than 40,000 units&quot;,
+    input=&quot;How many units did we sell?&quot;,
+    reference=&quot;We sold 32,378 units&quot;,
+)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.evaluation import load_evaluator
+
+evaluator = load_evaluator(&quot;criteria&quot;, criteria=&quot;conciseness&quot;)
+result = evaluator.evaluate_strings(
+    prediction=&quot;Short answer&quot;,
+    input=&quot;Question&quot;,
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.evaluation import PairwiseStringEvalChain
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;A&quot;, &quot;B&quot;])
+chain = PairwiseStringEvalChain.from_llm(llm)
+chain.evaluate_string_pairs(prediction=&quot;A&quot;, prediction_b=&quot;B&quot;, input=&quot;Q&quot;)</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

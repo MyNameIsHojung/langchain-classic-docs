@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>embeddings</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.embeddings</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>임베딩 모델 래퍼, 캐시 헬퍼, 프로바이더 shim입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>통합 init_embeddings 또는 캐시 기반 임베딩이 필요할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>init_embeddings(...) 후 필요하면 CacheBackedEmbeddings를 사용합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>프로바이더 패키지를 우선 사용하고, 캐시는 storage로 유지하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>init_embeddings는 통합 모델 문자열에서 프로바이더별 임베딩을 구성합니다.</li>
+            <li>CacheBackedEmbeddings는 임베더를 key-value 캐시로 감쌉니다.</li>
+            <li>langchain_community의 여러 프로바이더 임베딩을 재내보냅니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>init_embeddings.</li>
+            <li>CacheBackedEmbeddings.</li>
+            <li>HypotheticalDocumentEmbedder (from chains.hyde).</li>
+            <li>OpenAIEmbeddings, CohereEmbeddings, HuggingFaceEmbeddings 등 프로바이더 임베딩(동적 임포트).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>init_embeddings에서 지원하는 프로바이더는 openai, azure_openai, bedrock, cohere, google_genai,
+              google_vertexai, huggingface, mistralai, ollama를 포함합니다.</li>
+            <li>대부분의 프로바이더 클래스는 langchain_community shim이며 통합 패키지 설치가 필요합니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.embeddings import init_embeddings
+
+embedder = init_embeddings(&quot;openai:text-embedding-3-small&quot;)
+embedder.embed_query(&quot;hello&quot;)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.embeddings import CacheBackedEmbeddings
+from langchain_classic.storage import LocalFileStore
+from langchain_openai import OpenAIEmbeddings
+
+store = LocalFileStore(&quot;./embedding_cache&quot;)
+underlying = OpenAIEmbeddings()
+embedder = CacheBackedEmbeddings.from_bytes_store(
+    underlying, store, namespace=underlying.model
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.chains.hyde.base import HypotheticalDocumentEmbedder
+from langchain_classic.embeddings import init_embeddings
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;hypothetical doc&quot;])
+base = init_embeddings(&quot;openai:text-embedding-3-small&quot;)
+hyde = HypotheticalDocumentEmbedder.from_llm(llm, base)
+hyde.embed_query(&quot;What is LCEL?&quot;)</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

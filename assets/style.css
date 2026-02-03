@@ -259,4 +259,20 @@ footer.site-footer { padding: 16px; text-align: center; color: var(--muted); fon
   .layout {
     grid-template-columns: 1fr;
   }
+  body {
+    overflow: auto;
+  }
+  main.container {
+    height: auto;
+    overflow: visible;
+  }
+  .sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-right: none;
+  }
+  .layout {
+    min-height: auto;
+  }
 }

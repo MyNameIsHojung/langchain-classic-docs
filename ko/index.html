@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="en" data-theme="system">
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LangChain Classic Reference</title>
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="../assets/style.css" />
 </head>
 
 <body>
@@ -18,8 +18,8 @@
             <option value="light">Light</option>
             <option value="night">Night</option>
           </select></div>
-        <div class="theme-toggle lang-toggle"><span>Language</span><a href="index.html"
-            aria-current="page">EN</a><span aria-hidden="true">/</span><a href="ko/index.html">KO</a></div>
+        <div class="theme-toggle lang-toggle"><span>Language</span><a href="../index.html">EN</a><span
+            aria-hidden="true">/</span><a href="index.html" aria-current="page">KO</a></div>
       </div>
     </div>
   </header>
@@ -28,65 +28,59 @@
       <aside class="sidebar">
         <div class="card">
           <nav class="module-grid" id="module-nav"><a class="module-card"
-              href="langchain_classic/agents.html">Agents<span>langchain_classic.agents</span></a><a class="module-card"
-              href="langchain_classic/callbacks.html">Callbacks<span>langchain_classic.callbacks</span></a><a
+              href="langchain_classic/agents.html">Agents<span>langchain_classic.agents</span></a><a
+              class="module-card" href="langchain_classic/callbacks.html">Callbacks<span>langchain_classic.callbacks</span></a><a
               class="module-card" href="langchain_classic/chains.html">Chains<span>langchain_classic.chains</span></a><a
               class="module-card" href="langchain_classic/chat_models.html">Chat
               Models<span>langchain_classic.chat_models</span></a><a class="module-card"
               href="langchain_classic/embeddings.html">Embeddings<span>langchain_classic.embeddings</span></a><a
-              class="module-card"
-              href="langchain_classic/evaluation.html">Evaluation<span>langchain_classic.evaluation</span></a><a
-              class="module-card"
-              href="langchain_classic/globals.html">Globals<span>langchain_classic.globals</span></a><a
+              class="module-card" href="langchain_classic/evaluation.html">Evaluation<span>langchain_classic.evaluation</span></a><a
+              class="module-card" href="langchain_classic/globals.html">Globals<span>langchain_classic.globals</span></a><a
               class="module-card" href="langchain_classic/hub.html">Hub<span>langchain_classic.hub</span></a><a
               class="module-card" href="langchain_classic/memory.html">Memory<span>langchain_classic.memory</span></a><a
               class="module-card" href="langchain_classic/output_parsers.html">Output
               Parsers<span>langchain_classic.output_parsers</span></a><a class="module-card"
               href="langchain_classic/retrievers.html">Retrievers<span>langchain_classic.retrievers</span></a><a
-              class="module-card"
-              href="langchain_classic/runnables.html">Runnables<span>langchain_classic.runnables</span></a><a
-              class="module-card"
-              href="langchain_classic/langsmith.html">LangSmith<span>langchain_classic.smith</span></a><a
-              class="module-card"
-              href="langchain_classic/storage.html">Storage<span>langchain_classic.storage</span></a></nav>
+              class="module-card" href="langchain_classic/runnables.html">Runnables<span>langchain_classic.runnables</span></a><a
+              class="module-card" href="langchain_classic/langsmith.html">LangSmith<span>langchain_classic.smith</span></a><a
+              class="module-card" href="langchain_classic/storage.html">Storage<span>langchain_classic.storage</span></a></nav>
         </div>
       </aside>
       <div class="content" id="content-area">
         <section class="card">
           <h2>About this documentation</h2>
           <ul>
-            <li>Built from local package source at langchain_classic.</li>
-            <li>langchain_classic is primarily a compatibility shim that re-exports symbols from langchain_core and
-              langchain_community.</li>
-            <li>Dynamic imports emit LangChain deprecation warnings outside interactive environments.</li>
-            <li>For new projects, prefer the modern packages (langchain_core, langchain_community,
-              langchain_text_splitters) and LCEL workflows.</li>
+            <li>langchain_classic의 로컬 패키지 소스에서 빌드했습니다.</li>
+            <li>langchain_classic은 주로 langchain_core와 langchain_community의 심볼을 재내보내는 compatibility shim입니다.</li>
+            <li>Dynamic imports는 interactive 환경 밖에서 LangChain deprecation warnings를 발생시킵니다.</li>
+            <li>새 프로젝트에서는 modern packages(langchain_core, langchain_community, langchain_text_splitters)와
+              LCEL workflows를 우선 사용하세요.</li>
           </ul>
         </section>
         <section class="card">
           <h2>How to use</h2>
           <ul>
-            <li>Browse modules on the left to open their reference pages.</li>
-            <li>Each page summarizes exports, shims, and notes from the local package source.</li>
+            <li>왼쪽 모듈을 탐색해 각 reference page를 여세요.</li>
+            <li>각 페이지는 로컬 패키지 소스의 exports, shims, notes를 요약합니다.</li>
           </ul>
         </section>
         <section class="card">
           <h2>Overview</h2>
           <ul>
-            <li>langchain_classic preserves the legacy LangChain API surface while the project moves to split packages.
+            <li>langchain_classic은 프로젝트가 split packages로 이동하는 동안 legacy LangChain API surface를 유지합니다.</li>
+            <li>Core packages는 이제 <code>langchain_core</code>, <code>langchain_community</code>, 그리고
+              <code>langchain_text_splitters</code>에 있습니다.
             </li>
-            <li>Core packages now live in: <code>langchain_core</code>, <code>langchain_community</code>, and
-              <code>langchain_text_splitters</code>.
-            </li>
-            <li>Most modules are dynamic import shims; a subset of classic implementations remain for backwards
-              compatibility.</li>
+            <li>대부분 모듈은 dynamic import shims이며, 일부 classic implementations는 backward compatibility를 위해
+              남아 있습니다.</li>
           </ul>
-          <p>Use langchain_classic when you need legacy APIs or classic chains/agents that have not been migrated. For
-            new projects, prefer LCEL and the modern packages.</p>
+          <p>legacy API 또는 아직 마이그레이션되지 않은 classic chains/agents가 필요할 때 langchain_classic을 사용하세요. 새
+            프로젝트에는 LCEL과 modern packages를 권장합니다.</p>
         </section>
         <section class="card">
           <h2>Installation</h2>
           <pre><code>pip install langchain-classic</code></pre>
+          <p>Core requirements(로컬 메타데이터 기준):</p>
         </section>
         <section class="card">
           <h2>Quickstart</h2>
@@ -127,38 +121,35 @@ prompt = hub.pull("owner/prompt_name")</code></pre>
         <section class="card">
           <h2>Deprecations and migration</h2>
           <ul>
-            <li><code>from langchain_classic import OpenAI</code> →
-              <code>from langchain_community.llms import OpenAI</code>
+            <li><code>from langchain_classic import OpenAI</code> → <code>from langchain_community.llms import OpenAI</code>
             </li>
-            <li><code>from langchain_classic import FAISS</code> →
-              <code>from langchain_community.vectorstores import FAISS</code>
+            <li><code>from langchain_classic import FAISS</code> → <code>from langchain_community.vectorstores import FAISS</code>
             </li>
-            <li><code>from langchain_classic import PromptTemplate</code> →
-              <code>from langchain_core.prompts import PromptTemplate</code>
+            <li><code>from langchain_classic import PromptTemplate</code> → <code>from langchain_core.prompts import PromptTemplate</code>
             </li>
             <li><code>from langchain_classic.text_splitter import RecursiveCharacterTextSplitter</code> →
               <code>from langchain_text_splitters import RecursiveCharacterTextSplitter</code>
             </li>
           </ul>
-          <p>LLMChain and classic agents remain for compatibility, but LCEL and LangGraph are recommended for new work.
+          <p>LLMChain과 classic agents는 compatibility를 위해 유지되지만, 새 작업에는 LCEL과 LangGraph를 권장합니다.
           </p>
         </section>
         <section class="card">
           <h2>Troubleshooting</h2>
           <ul>
-            <li><strong>ModuleNotFoundError: langchain_community</strong> → install <code>langchain-community</code> for
-              integrations.</li>
-            <li><strong>ImportError: moved to langchain_experimental</strong> → use <code>langchain_experimental</code>
-              and sandbox tools.</li>
-            <li><strong>Unexpected deprecation warnings</strong> → prefer direct imports from
-              <code>langchain_core</code> / <code>langchain_community</code>.
+            <li><strong>ModuleNotFoundError: langchain_community</strong> → integrations를 위해
+              <code>langchain-community</code>를 설치하세요.</li>
+            <li><strong>ImportError: moved to langchain_experimental</strong> → <code>langchain_experimental</code>과
+              sandbox tools를 사용하세요.</li>
+            <li><strong>Unexpected deprecation warnings</strong> → <code>langchain_core</code> /
+              <code>langchain_community</code>에서 직접 import하는 것을 권장합니다.
             </li>
           </ul>
         </section>
       </div>
     </div>
   </main>
-  <script src="assets/app.js" defer></script>
+  <script src="../assets/app.js" defer></script>
 </body>
 
 </html>

@@ -1,0 +1,93 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>retrievers</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.retrievers</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>텍스트 쿼리에 대해 문서를 반환하는 리트리버입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>RAG에 문서를 제공할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>vectorstore retriever로 시작한 뒤 multi-query/압축용으로 감쌉니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>새 통합에는 langchain_community에서 retriever를 임포트하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>multi-query, multi-vector, parent-document, time-weighted 등 클래식 retriever.</li>
+            <li>검색 품질을 높이는 컨텍스추얼 압축 및 앙상블 retriever.</li>
+            <li>langchain_community에 있는 여러 외부 시스템 retriever에 대한 동적 임포트 shim.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>ContextualCompressionRetriever, EnsembleRetriever, MergerRetriever.</li>
+            <li>MultiQueryRetriever, MultiVectorRetriever, ParentDocumentRetriever.</li>
+            <li>SelfQueryRetriever, RePhraseQueryRetriever, TimeWeightedVectorStoreRetriever.</li>
+            <li>BM25Retriever, AmazonKendraRetriever, PineconeHybridSearchRetriever 등 커뮤니티 retriever
+              (동적 임포트).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>대부분의 외부 retriever는 langchain_community에서 제공되며 프로바이더별 의존성이 필요합니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_community.retrievers import BM25Retriever
+from langchain_core.documents import Document
+
+texts = [&quot;cats are great&quot;, &quot;dogs like walks&quot;, &quot;cats purr&quot;]
+docs = [Document(page_content=t) for t in texts]
+retriever = BM25Retriever.from_documents(docs)
+retriever.invoke(&quot;cats&quot;)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.retrievers import MultiQueryRetriever
+from langchain_community.retrievers import BM25Retriever
+from langchain_core.documents import Document
+from langchain_core.language_models import FakeListLLM
+
+docs = [Document(page_content=&quot;cats&quot;), Document(page_content=&quot;dogs&quot;)]
+base = BM25Retriever.from_documents(docs)
+llm = FakeListLLM(responses=[&quot;cat care
+cat behavior
+cat food&quot;])
+retriever = MultiQueryRetriever.from_llm(retriever=base, llm=llm)
+retriever.invoke(&quot;How to care for a cat?&quot;)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.retrievers import SelfQueryRetriever
+
+retriever = SelfQueryRetriever.from_llm(
+    llm=llm,
+    vectorstore=vectorstore,
+    document_contents=&quot;product reviews&quot;,
+    metadata_field_info=metadata_field_info,
+)
+retriever.invoke(&quot;Affordable shoes under $100&quot;)</code></pre></section>
+
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>output_parsers</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.output_parsers</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>LLM 출력을 구조화 데이터로 변환하는 파서입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>LLM 출력을 구조화 데이터로 파싱할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>포맷 지침을 포함한 뒤 응답을 파싱합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>langchain_core.output_parsers를 우선 사용하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>List, CSV, Markdown, numbered list, XML, YAML, Pydantic 기반 파서.</li>
+            <li>Regex 기반 파서와 구조화 출력 스키마.</li>
+            <li>잘못된 출력을 보정하는 retry/fixing 파서.</li>
+            <li>tool-call JSON용 OpenAI tool 파서.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>ListOutputParser, CommaSeparatedListOutputParser, MarkdownListOutputParser, NumberedListOutputParser.</li>
+            <li>PydanticOutputParser, XMLOutputParser, YamlOutputParser.</li>
+            <li>StructuredOutputParser, ResponseSchema.</li>
+            <li>RegexParser, RegexDictParser, BooleanOutputParser, DatetimeOutputParser, EnumOutputParser.</li>
+            <li>OutputFixingParser, RetryOutputParser, RetryWithErrorOutputParser, CombiningOutputParser.</li>
+            <li>JsonOutputToolsParser, JsonOutputKeyToolsParser, PydanticToolsParser.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>GuardrailsOutputParser는 가능할 때 langchain_community.output_parsers.rail_parser에서 해결됩니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.output_parsers import ResponseSchema, StructuredOutputParser
+
+schemas = [ResponseSchema(name=&quot;answer&quot;, description=&quot;Final answer&quot;)]
+parser = StructuredOutputParser.from_response_schemas(schemas)
+format_instructions = parser.get_format_instructions()</code></pre><h3>Intermediate</h3><pre><code>from pydantic import BaseModel, Field
+from langchain_classic.output_parsers import PydanticOutputParser
+
+class Person(BaseModel):
+    name: str = Field(...)
+    age: int = Field(...)
+
+parser = PydanticOutputParser(pydantic_object=Person)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.output_parsers import OutputFixingParser, PydanticOutputParser
+from langchain_openai import ChatOpenAI
+
+parser = PydanticOutputParser(pydantic_object=Person)
+fixer = OutputFixingParser.from_llm(parser=parser, llm=ChatOpenAI())</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>callbacks</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.callbacks</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>실행을 관찰하기 위한 콜백 핸들러와 트레이싱 헬퍼입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>체인 또는 에이전트의 tracing/logging/streaming이 필요할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>invoke/astream에 callbacks=[...]를 전달하고 collect_runs를 사용합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>통합 콜백은 langchain_community에서 직접 임포트하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>stdout 및 파일 로깅용 표준 핸들러.</li>
+            <li>async iterator와 final-only stdout용 스트리밍 헬퍼.</li>
+            <li>LangChainTracer와 tracing_v2_enabled, collect_runs를 통한 트레이싱 헬퍼.</li>
+            <li>langchain_community를 통해 많은 통합 전용 핸들러로 프록시.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>StdOutCallbackHandler, StreamingStdOutCallbackHandler, FileCallbackHandler.</li>
+            <li>AsyncIteratorCallbackHandler, FinalStreamingStdOutCallbackHandler.</li>
+            <li>LangChainTracer, collect_runs, tracing_v2_enabled.</li>
+            <li>WandbCallbackHandler, MlflowCallbackHandler, OpenAICallbackHandler 등 커뮤니티 핸들러
+              (동적 임포트).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>대부분의 프로바이더 전용 콜백 핸들러는 langchain_community에서 동적으로 임포트되며,
+              langchain_classic 경로에서 사용할 때 deprecation 경고가 발생합니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.callbacks import StdOutCallbackHandler
+from langchain_classic.chains import LLMChain
+from langchain_core.language_models import FakeListLLM
+from langchain_core.prompts import PromptTemplate
+
+llm = FakeListLLM(responses=[&quot;hello&quot;])
+prompt = PromptTemplate.from_template(&quot;Say {thing}&quot;)
+chain = LLMChain(llm=llm, prompt=prompt)
+chain.invoke({&quot;thing&quot;: &quot;hi&quot;}, callbacks=[StdOutCallbackHandler()])</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.callbacks import collect_runs
+
+with collect_runs() as cb:
+    chain.invoke({&quot;thing&quot;: &quot;hi&quot;})
+print(len(cb.traced_runs))</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.callbacks import LangChainTracer
+
+tracer = LangChainTracer(project_name=&quot;classic-docs&quot;)
+chain.invoke({&quot;thing&quot;: &quot;hi&quot;}, callbacks=[tracer])</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

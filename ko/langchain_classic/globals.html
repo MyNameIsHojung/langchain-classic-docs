@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>globals</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.globals</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>전역 debug/verbose/캐시 설정 훅입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>debug/verbose/캐시를 전역으로 설정할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>시작 시 set_debug/set_verbose/set_llm_cache를 호출합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>신규 코드에서는 실행별 config를 우선 사용하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>langchain_core.globals의 전역 setter/getter를 재내보냅니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>get_debug, set_debug.</li>
+            <li>get_verbose, set_verbose.</li>
+            <li>get_llm_cache, set_llm_cache.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>이 설정은 프로세스 전체에 적용되며 클래식 체인, 에이전트, 러너블에 영향을 줍니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.globals import set_debug
+
+set_debug(True)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.globals import set_verbose, get_verbose
+
+set_verbose(True)
+print(get_verbose())</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.globals import set_llm_cache
+from langchain_community.cache import InMemoryCache
+
+set_llm_cache(InMemoryCache())</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

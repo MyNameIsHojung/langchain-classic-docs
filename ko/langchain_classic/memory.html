@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>memory</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.memory</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>체인과 에이전트를 위한 상태 보존 메모리 구현입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>실행 간 대화 상태를 유지할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>메모리 클래스를 선택해 체인/에이전트에 연결합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>신규 앱에서는 외부 메모리 스토어를 고려하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>대화 컨텍스트를 위한 버퍼/Summary 메모리.</li>
+            <li>더 긴 히스토리를 위한 토큰 버퍼 및 vectorstore 기반 메모리.</li>
+            <li>결합/읽기 전용 메모리 어댑터와 엔터티 스토어 기반 엔터티 메모리.</li>
+            <li>채팅 메시지 히스토리 구현은 langchain_community에서 동적으로 임포트됩니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>ConversationBufferMemory, ConversationStringBufferMemory, ConversationBufferWindowMemory.</li>
+            <li>ConversationSummaryMemory, ConversationSummaryBufferMemory, ConversationTokenBufferMemory.</li>
+            <li>ConversationVectorStoreTokenBufferMemory, VectorStoreRetrieverMemory.</li>
+            <li>CombinedMemory, ReadOnlySharedMemory, SimpleMemory.</li>
+            <li>ConversationEntityMemory, InMemoryEntityStore, RedisEntityStore, SQLiteEntityStore,
+              UpstashRedisEntityStore.</li>
+            <li>RedisChatMessageHistory, SQLChatMessageHistory 등 채팅 메시지 히스토리(동적 임포트).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>커뮤니티 채팅 히스토리 구현에는 langchain-community와 해당 드라이버가 필요합니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.memory import ConversationBufferMemory
+
+memory = ConversationBufferMemory(return_messages=True)</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.memory import ConversationSummaryBufferMemory
+from langchain_core.language_models import FakeListLLM
+
+llm = FakeListLLM(responses=[&quot;summary&quot;])
+memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=50)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.memory import VectorStoreRetrieverMemory
+
+memory = VectorStoreRetrieverMemory(retriever=retriever)</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

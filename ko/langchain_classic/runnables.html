@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>runnables</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.runnables</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>LangChain Expression Language(LCEL)을 위한 비코어 runnable 유틸리티입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>OpenAI function 호출을 라우팅하거나 hub runnable을 로드할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>OpenAIFunctionsRouter 또는 HubRunnable을 사용합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>신규 워크플로에는 LCEL/core runnables를 우선 사용하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>tool-call 출력에 따라 바인딩/라우팅하는 헬퍼 runnable을 포함합니다.</li>
+            <li>LangChain Hub에서 runnable을 로드하는 HubRunnable을 제공합니다.</li>
+            <li>LCEL 핵심 인터페이스는 langchain_core.runnables에 있습니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>OpenAIFunctionsRouter (langchain_classic.runnables.openai_functions).</li>
+            <li>HubRunnable (langchain_classic.runnables.hub).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>패키지 __init__은 모듈 독스트링만 제공하므로, 구체 클래스는 하위 모듈에서 임포트하세요.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.runnables.hub import HubRunnable
+
+runnable = HubRunnable(&quot;owner/prompt_name&quot;)
+runnable.invoke({&quot;input&quot;: &quot;hi&quot;})</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.runnables.openai_functions import OpenAIFunctionsRouter
+from langchain_core.runnables import RunnableLambda
+
+router = OpenAIFunctionsRouter(
+    runnables={
+        &quot;add&quot;: RunnableLambda(lambda x: x[&quot;a&quot;] + x[&quot;b&quot;]),
+        &quot;echo&quot;: RunnableLambda(lambda x: x),
+    }
+)</code></pre><h3>Advanced</h3><pre><code>from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+chain = PromptTemplate.from_template(&quot;Say {thing}&quot;) | llm | StrOutputParser()
+chain.invoke({&quot;thing&quot;: &quot;hello&quot;})</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

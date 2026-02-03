@@ -1,0 +1,107 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>agents</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.agents</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>도구를 사용하는 워크플로와 액션 선택을 위한 클래식 에이전트 프레임워크입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>레거시 에이전트 실행기(ZeroShot/MRKL/ReAct/Structured/XML)가 필요할 때.</li>
+            <li>0.2 이전 API의 tool 기반 워크플로에 사용할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>Tool 또는 @tool로 도구를 정의하고 에이전트 팩토리를 선택합니다.</li>
+            <li>AgentExecutor/initialize_agent를 생성하고 입력으로 invoke합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>신규 시스템에는 LangGraph 또는 LCEL tool-calling을 우선 사용하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>액션과 tool 호출을 반복하는 핵심 에이전트 인터페이스와 실행기를 정의합니다.</li>
+            <li>ZeroShot, MRKL, ReAct, conversational, structured, XML 에이전트 같은 클래식 타입을 제공합니다.</li>
+            <li>OpenAI functions, tool calling, JSON/structured chat, vectorstore 에이전트를 위한 팩토리 헬퍼를 포함합니다.</li>
+            <li>편의를 위해 langchain_core.tools의 Tool과 tool 데코레이터를 재내보냅니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>핵심 클래스: Agent, AgentExecutor, AgentExecutorIterator, AgentOutputParser.</li>
+            <li>기본 타입: BaseSingleActionAgent, BaseMultiActionAgent, LLMSingleActionAgent, AgentType.</li>
+            <li>에이전트 유형: ZeroShotAgent, MRKLChain, ReActChain, ReActTextWorldAgent, ConversationalAgent,
+              ConversationalChatAgent, StructuredChatAgent, XMLAgent.</li>
+            <li>OpenAI 유형: OpenAIFunctionsAgent, OpenAIMultiFunctionsAgent.</li>
+            <li>팩토리: initialize_agent, load_agent, create_openai_functions_agent, create_openai_tools_agent,
+              create_tool_calling_agent.</li>
+            <li>팩토리(클래식): create_react_agent, create_structured_chat_agent, create_json_chat_agent,
+              create_self_ask_with_search_agent.</li>
+            <li>Vectorstore 헬퍼: create_vectorstore_agent, create_vectorstore_router_agent.</li>
+            <li>Tool 헬퍼: Tool, tool.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>일부 툴킷은 langchain_community에서 동적으로 해결됩니다(예: create_sql_agent,
+              create_openapi_agent, load_tools). 해당 임포트를 사용하려면 langchain-community를 설치하세요.</li>
+            <li>create_csv_agent, create_pandas_dataframe_agent, create_spark_dataframe_agent, create_xorbits_agent는
+              ImportError를 발생시키며 langchain_experimental로 이동했습니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.agents import AgentType, initialize_agent
+from langchain_core.language_models import FakeListLLM
+from langchain_core.tools import Tool
+
+llm = FakeListLLM(responses=[&quot;ok&quot;])
+tools = [Tool(name=&quot;echo&quot;, func=lambda x: x, description=&quot;Echo input&quot;)]
+agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION)
+agent.invoke({&quot;input&quot;: &quot;hello&quot;})</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.agents import AgentType, initialize_agent
+from langchain_core.language_models import FakeListLLM
+from langchain_core.tools import Tool
+
+llm = FakeListLLM(responses=[&quot;ok&quot;])
+tools = [Tool(name=&quot;echo&quot;, func=lambda x: x, description=&quot;Echo input&quot;)]
+agent = initialize_agent(
+    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, return_intermediate_steps=True
+)
+result = agent.invoke({&quot;input&quot;: &quot;hi&quot;})
+print(result[&quot;intermediate_steps&quot;])</code></pre><h3>Advanced</h3><pre><code>from langchain_openai import ChatOpenAI
+from langchain_classic.agents import create_tool_calling_agent, AgentExecutor
+from langchain_core.tools import tool
+
+@tool
+def add(a: int, b: int) -&gt; int:
+    return a + b
+
+llm = ChatOpenAI()
+agent = create_tool_calling_agent(llm, [add])
+executor = AgentExecutor(agent=agent, tools=[add])
+executor.invoke({&quot;input&quot;: &quot;Add 2 and 3&quot;})</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>storage</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <div class="content">
+        <section class="card">
+          <h2>Module path</h2>
+          <p><code>langchain_classic.storage</code></p>
+        </section>
+        <section class="card">
+          <h2>Summary</h2>
+          <p>캐싱과 영속화를 위한 key-value 스토어와 storage 헬퍼입니다.</p>
+        </section>
+        <section class="card">
+          <h2>When to use</h2>
+          <ul>
+            <li>KV 스토어에 임베딩/문서를 캐시할 때.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Typical workflow</h2>
+          <ul>
+            <li>InMemoryStore 또는 LocalFileStore/EncoderBackedStore를 사용합니다.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Migration notes</h2>
+          <ul>
+            <li>신규 코드는 langchain_core.stores를 우선 사용하세요.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>What it provides</h2>
+          <ul>
+            <li>bytes 및 임의 값용 인메모리 스토어.</li>
+            <li>파일 시스템 기반 byte 스토어와 encoder-backed 스토어 래퍼.</li>
+            <li>LangChain docstore와 LC store를 구축하는 헬퍼.</li>
+            <li>langchain_community의 Redis/Upstash 스토어에 대한 동적 임포트.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notable exports</h2>
+          <ul>
+            <li>InMemoryStore, InMemoryByteStore, InvalidKeyException.</li>
+            <li>LocalFileStore, EncoderBackedStore.</li>
+            <li>create_kv_docstore, create_lc_store.</li>
+            <li>RedisStore, UpstashRedisStore, UpstashRedisByteStore (동적 임포트).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h2>Notes and shims</h2>
+          <ul>
+            <li>Redis와 Upstash 스토어는 langchain-community와 해당 클라이언트 라이브러리가 필요합니다.</li>
+          </ul>
+        </section>
+        <section class="card"><h2>Examples</h2><h3>Beginner</h3><pre><code>from langchain_classic.storage import InMemoryStore
+
+store = InMemoryStore()
+store.mset([(&quot;key&quot;, {&quot;value&quot;: 1})])</code></pre><h3>Intermediate</h3><pre><code>from langchain_classic.storage import LocalFileStore
+
+store = LocalFileStore(&quot;./cache_dir&quot;)</code></pre><h3>Advanced</h3><pre><code>from langchain_classic.storage import EncoderBackedStore, LocalFileStore
+import json
+
+base = LocalFileStore(&quot;./cache_dir&quot;)
+store = EncoderBackedStore(
+    base,
+    key_encoder=lambda k: k,
+    value_serializer=lambda v: json.dumps(v).encode(),
+    value_deserializer=lambda b: json.loads(b.decode()),
+)</code></pre></section>
+      
+  </div>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>
+
